@@ -1,21 +1,15 @@
-var express = require ("express")
-var cors = require ("cors")
-var bodyParser = require ("body-parser")
-var MongoClient = require ("mongodb").MongoClient
-const { text } = require("body-parser");
-const { query } = require("express");
+import express from "express"
+import cors from "cors"
+import bodyParser from "body-parser"
+import {MongoClient} from "mongodb"
 
 var jsonParser = bodyParser.json()
 var app = express()
 
 app.use(cors())
-let db 
 
-MongoClient.connect("mongodb+srv://admin:Password@Cluster0.ktisoxh.mongodb.net/?retryWrites=true&w=majority", (err, client) =>{
-    db = client.db("Logins")
-    if (err)
-        console.log(err)
-})
+const client = new MongoClient("mongodb+srv://admin:Password@Cluster0.ktisoxh.mongodb.net/?retryWrites=true&w=majority")
+const db = client.db("Database")
 
 app.post("/", jsonParser,(req, res) =>{
     console.log(req.body)
